@@ -1,22 +1,20 @@
 apply plugin: 'com.android.application'
+apply from: '../dependencies.gradle'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
 
     lintOptions {
         abortOnError false
     }
     defaultConfig {
         applicationId "com.afollestad.materialcamerasample"
-        minSdkVersion 14
-        targetSdkVersion 23
-        versionCode 4
-        versionName "0.2.0"
-        generatedDensities = []
-    }
-    aaptOptions {
-        additionalParameters "--no-version-vectors"
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.compileSdk
+        versionCode versions.publishVersionCode
+        versionName versions.publishVersion
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -27,10 +25,11 @@ android {
 }
 
 repositories {
-    maven { url "https://jitpack.io" }
+    jcenter()
+    maven { url "https://dl.bintray.com/drummer-aidan/maven" }
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:23.2.1'
     compile project(':library')
+    compile 'com.android.support:appcompat-v7:' + versions.supportLib
 }
